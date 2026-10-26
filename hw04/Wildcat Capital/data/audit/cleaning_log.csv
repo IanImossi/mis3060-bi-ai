@@ -1,0 +1,34 @@
+step,table,issue,action,rows_affected,note
+1,all,load,read as text,555176,"dtype=str, keep_default_na=False; sha256 recorded to prove raw files are untouched"
+2,all,leading/trailing whitespace,standardize,0,Profile found none in this extract; step kept as a safeguard for joins
+3,dim_advisor,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,dim_benchmark,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,dim_client,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,dim_date,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,dim_security,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,fact_fees,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,fact_portfolio_snapshot,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+3,fact_transactions,exact duplicate rows,quarantine,0,Profile found none; step kept as a safeguard
+4,fact_transactions,transactions after client departure,quarantine,2410,"Recomputed from dim_client.is_active + last snapshot month; matches source flag exactly. Mix: {'Buy': 689, 'Sell': 482, 'Dividend': 439, 'Advisory Fee': 284, 'Deposit': 278, 'Withdrawal': 238}"
+5,fact_portfolio_snapshot,AUM placeholder/floor 1000.0,flag,420,92 clients; value kept (true balance unknowable)
+6,fact_fees,AUM placeholder/floor 1000.0,flag,386,Reconciled: every floor fee matches a floor snapshot month and recomputes to the cent; 34 floor snapshot months have no fee
+7,fact_transactions,dividend = full position value,flag,53387,"Flagged dividends total $3,422,751,501.05; amounts not changed"
+8,fact_transactions,trade on non-trading day,flag,40291,"40,291 on weekends, 0 on weekday holidays; dates not moved"
+9,fact_portfolio_snapshot,"return_ytd > 1,000%",flag (existing column verified),261,977 rows with |return| > 100% all carry is_return_suspect = 1; values kept
+10,dim_client,risk_profile = 'Unknown',leave as is,0,Legitimate value/structure - see decision log
+10,dim_advisor,certifications = 'None',leave as is,0,Legitimate value/structure - see decision log
+10,dim_security,rows sharing a name,leave as is,0,Legitimate value/structure - see decision log
+10,fact_transactions,sells exceeding running position (pre-2020 holdings),leave as is,0,Documented limitation - see README_clean.md
+10,dim_client,initial_aum vs first snapshot (2 clients),leave as is,0,Documented limitation - see README_clean.md
+10,fact_transactions,Advisory Fee debits vs fact_fees bills,leave as is,0,Documented limitation - see README_clean.md
+11,all,reconciliation R1-R7,verify,0,"Fee formula, alpha formula, fee vs snapshot AUM/advisor, snapshot vs dim_date, trade amount, txn-type structure, fact vs client advisor - all pass"
+12,all,keys and referential integrity,verify,0,8 primary keys unique; 13 relationships at 100% match
+13,dim_advisor,row balance,verify,0,raw 25 = clean 25 + quarantined 0
+13,dim_benchmark,row balance,verify,0,raw 8 = clean 8 + quarantined 0
+13,dim_client,row balance,verify,0,"raw 2,500 = clean 2,500 + quarantined 0"
+13,dim_date,row balance,verify,0,"raw 1,827 = clean 1,827 + quarantined 0"
+13,dim_security,row balance,verify,0,raw 500 = clean 500 + quarantined 0
+13,fact_fees,row balance,verify,0,"raw 122,197 = clean 122,197 + quarantined 0"
+13,fact_portfolio_snapshot,row balance,verify,0,"raw 129,547 = clean 129,547 + quarantined 0"
+13,fact_transactions,row balance,verify,2410,"raw 298,572 = clean 296,162 + quarantined 2,410"
+13,all,raw files untouched,verify,0,sha256 of all 8 raw files identical after run
