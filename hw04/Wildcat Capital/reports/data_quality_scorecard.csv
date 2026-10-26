@@ -1,0 +1,17 @@
+table,stage,rows,pct_completeness,pct_key_uniqueness,pct_type_validity,pct_rule_pass,pct_rule_pass_unflagged,pct_referential_match,rules_evaluated,rule_checks,rule_failures,foreign_keys,notes
+dim_advisor,raw,25,100.0,100.0,100.0,100.0,100.0,,4,100,0,0,"no outgoing foreign keys - referential match not applicable; raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+dim_advisor,clean,25,100.0,100.0,100.0,100.0,100.0,,4,100,0,0,no outgoing foreign keys - referential match not applicable
+dim_benchmark,raw,8,100.0,100.0,100.0,100.0,100.0,,1,8,0,0,"no outgoing foreign keys - referential match not applicable; raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+dim_benchmark,clean,8,100.0,100.0,100.0,100.0,100.0,,1,8,0,0,no outgoing foreign keys - referential match not applicable
+dim_client,raw,2500,100.0,100.0,100.0,100.0,100.0,100.0,10,25000,0,1,"raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+dim_client,clean,2500,100.0,100.0,100.0,100.0,100.0,100.0,10,25000,0,1,
+dim_date,raw,1827,100.0,100.0,100.0,100.0,100.0,,7,12267,0,0,"no outgoing foreign keys - referential match not applicable; raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+dim_date,clean,1827,100.0,100.0,100.0,100.0,100.0,,7,12267,0,0,no outgoing foreign keys - referential match not applicable
+dim_security,raw,500,100.0,100.0,100.0,100.0,100.0,100.0,5,1938,0,1,"raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+dim_security,clean,500,100.0,100.0,100.0,100.0,100.0,100.0,5,1938,0,1,
+fact_fees,raw,122197,100.0,100.0,100.0,100.0,100.0,100.0,8,977576,0,3,"raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+fact_fees,clean,122197,100.0,100.0,100.0,100.0,100.0,100.0,8,977576,0,3,
+fact_portfolio_snapshot,raw,129547,100.0,100.0,100.0,99.973,99.973,100.0,13,1555541,420,4,"raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+fact_portfolio_snapshot,clean,129547,100.0,100.0,100.0,99.973,100.0,100.0,13,1555541,420,4,
+fact_transactions,raw,298572,100.0,100.0,100.0,95.597,95.597,100.0,14,2853100,125611,4,"raw has no cleaning flags, so pct_rule_pass_unflagged = pct_rule_pass"
+fact_transactions,clean,296162,100.0,100.0,100.0,95.674,98.984,100.0,14,2830229,122423,4,
